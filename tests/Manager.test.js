@@ -1,5 +1,5 @@
-const Manager = require("../../../UK-VIRT-FE-PT-10-2023-U-LOLC/12-object-oriented-programming-module/04-team-profile-generator-lesson/challenge/starter/lib/Manager");
-const Employee = require("../../../UK-VIRT-FE-PT-10-2023-U-LOLC/12-object-oriented-programming-module/04-team-profile-generator-lesson/challenge/starter/lib/Employee");
+const Manager = require("../lib/Manager");
+const Employee = require("../lib/Employee");
 
 test("Can set office number via constructor argument", () => {
   const testValue = 100;

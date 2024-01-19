@@ -1,4 +1,4 @@
-const Employee = require("../../../UK-VIRT-FE-PT-10-2023-U-LOLC/12-object-oriented-programming-module/04-team-profile-generator-lesson/challenge/starter/lib/Employee");
+const Employee = require("../lib/Employee");
 
 test("Can instantiate Employee instance", () => {
   const e = new Employee();

@@ -1,4 +1,4 @@
-const Engineer = require("../../../UK-VIRT-FE-PT-10-2023-U-LOLC/12-object-oriented-programming-module/04-team-profile-generator-lesson/challenge/starter/lib/Engineer");
+const Engineer = require("../lib/Engineer");
 
 test("Can set GitHUb account via constructor", () => {
   const testValue = "GitHubUser";
