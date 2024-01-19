@@ -11,8 +11,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./src/page-template.js");
 
 let employees = []
-let eQuestions = []
-let iQuestions = []
+let eQuestions
+let iQuestions
 //Some validations
 const checkEmail = async (input) => {
     return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(input)
@@ -69,24 +69,19 @@ inquirer.prompt(questions).then(function (response) {
     questions.splice(3,1)
 
     //new questions for engineer
-    eQuestions.push(questions)
-    eQuestions.push(
-    {
+    eQuestions = [].concat(questions, [{
         type: 'input',
         message: 'github username?',
         name: 'github',
-    }
-    )
+    }])
 
     //new questions for intern
-    iQuestions.push(questions)
-    iQuestions.push(
-    {
+    iQuestions = [].concat(questions, [{
         type: 'input',
         message: 'school?',
         name: 'school',
-    }
-    )
+    }])
+    console.log(iQuestions)
     choice();
 })
 
@@ -100,25 +95,27 @@ function choice(){
         }
     ]).then(function (answer) {
         if (answer.choice == 'Add an Engineer'){
-            promptu(iQuestions, Engineer, answer.github);
+            promptu(eQuestions, Engineer);
         }
         else if(answer.choice == 'Add an intern'){
-            promptu(eQuestions, Intern, answer.school);
+            promptu(iQuestions, Intern);
         }
         else{
-
+            fs.writeFile('teams.html', render(employees), (err) =>
+            err ? console.error(err) : console.log('hee ho')
+            )
         }
     })
 }
 
-function promptu(qChoice, classP, fourth){
+function promptu(qChoice, classP){
     inquirer.prompt(qChoice).then(function (answer) {
         if(classP == Engineer){
-            const engineer = new classP(answer.eName, answer.id, answer.email, fourth)
+            const engineer = new Engineer(answer.eName, answer.id, answer.email, answer.github)
             employees.push(engineer)
         }
         else{
-            const intern = new classP(answer.eName, answer.id, answer.email, fourth)
+            const intern = new classP(answer.eName, answer.id, answer.email, answer.schools)
             employees.push(intern)
         }
         choice();
