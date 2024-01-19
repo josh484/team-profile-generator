@@ -14,7 +14,13 @@ const checkEmail = async (input) => {
     return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(input)
 }
 const checkLetters = async (input) => {
-    return /[a-zA-Z]/.test(input)
+    if(/[a-zA-Z]/.test(input) == false){
+        return "only letters please"
+    }
+    else if (/[a-zA-Z]/.test(input) == true && /[0-9]/.test(input) == false){
+        return true
+    }
+    
 }
 const validateNumber = async (answer) => {
     if (isNaN(answer)) {
