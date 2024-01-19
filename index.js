@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+let employees = []
+
+//Some validations
 const checkEmail = async (input) => {
     return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(input)
 }
@@ -59,5 +62,45 @@ questions = [
 
 
 inquirer.prompt(questions).then(function (response) {
-
+    const manager = new Manager(response.eName, response.id, response.email, response.oNumber) 
+    employees.push(manager);
+    questions.splice(3,1)
+    choice();
 })
+
+function choice(){
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Choose one of the following',
+            name: 'choice',
+            choices: ['Add an Engineer', 'Add an intern', 'Finish building the team'],
+        }
+    ]).then(function (answer) {
+        if (answer.choice == 'Add an Engineer'){
+            engineer();
+        }
+        else if(answer.choice == 'Add an intern'){
+            intern();
+        }
+    })
+}
+
+function engineer(){
+    inquirer.prompt(questions + [{
+    type: 'number',
+    message: 'Office Number',
+    name: 'oNumber',
+    validate: validateNumber
+
+    }]).then(function (answer) {
+
+        choice();
+    })
+    
+}
+
+function intern(){
+    
+    choice();
+}
