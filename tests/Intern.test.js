@@ -1,4 +1,4 @@
-const Intern = require("../../../UK-VIRT-FE-PT-10-2023-U-LOLC/12-object-oriented-programming-module/04-team-profile-generator-lesson/challenge/starter/lib/Intern");
+const Intern = require("../lib/Intern");
 
 test("Can set school via constructor", () => {
   const testValue = "UCLA";
