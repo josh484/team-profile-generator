@@ -33,7 +33,7 @@ const validateNumber = async (answer) => {
 }
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
-questions = [
+let questions = [
     {
     type: 'input',
     message: 'Name?',
@@ -61,10 +61,35 @@ questions = [
 ]
 
 
+
 inquirer.prompt(questions).then(function (response) {
     const manager = new Manager(response.eName, response.id, response.email, response.oNumber) 
     employees.push(manager);
     questions.splice(3,1)
+
+    //new questions for engineer
+    let eQuestions = []
+    eQuestions.push(questions)
+    eQuestions.push(
+    {
+        type: 'input',
+        message: 'github username?',
+        name: 'github',
+    }
+    )
+
+    //new questions for intern
+    let iQuestions = []
+    iQuestions.push(questions)
+    iQuestions.push(
+    {
+        type: 'input',
+        message: 'school?',
+        name: 'school',
+    }
+    )
+
+    
     choice();
 })
 
@@ -78,29 +103,18 @@ function choice(){
         }
     ]).then(function (answer) {
         if (answer.choice == 'Add an Engineer'){
-            engineer();
+            promptu(iQuestions, Engineer, answer.github);
         }
         else if(answer.choice == 'Add an intern'){
-            intern();
+            promptu(eQuestions, Intern, answer.school);
         }
     })
 }
 
-function engineer(){
-    inquirer.prompt(questions + [{
-    type: 'number',
-    message: 'Office Number',
-    name: 'oNumber',
-    validate: validateNumber
-
-    }]).then(function (answer) {
-
+function promptu(qChoice, classP, fourth){
+    inquirer.prompt(qChoice).then(function (answer) {
+        const user = new classP(answer.eName, answer.id, answer.email, fourth)
         choice();
     })
     
-}
-
-function intern(){
-    
-    choice();
 }
