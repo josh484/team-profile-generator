@@ -1,0 +1,11 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Team generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joshua Mendoza",
+  "license": "ISC"
+}
