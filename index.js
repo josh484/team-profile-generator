@@ -74,17 +74,18 @@ inquirer.prompt(questions).then(function (response) {
         message: 'github username?',
         name: 'github',
     }])
-
+    
     //new questions for intern
     iQuestions = [].concat(questions, [{
         type: 'input',
         message: 'school?',
         name: 'school',
     }])
-    console.log(iQuestions)
+    console.log(OUTPUT_DIR)
     choice();
 })
 
+// prompts new questions based on choice or creates new files based on choice
 function choice(){
     inquirer.prompt([
         {
@@ -101,13 +102,25 @@ function choice(){
             promptu(iQuestions, Intern);
         }
         else{
-            fs.writeFile('teams.html', render(employees), (err) =>
-            err ? console.error(err) : console.log('hee ho')
+            // if output directory exists, create new html file inside that directory, else first create new directory
+            if (fs.existsSync(OUTPUT_DIR)){
+            fs.writeFile(outputPath, render(employees),{ recursive: true }, (err) =>
+            err ? console.error(err) : console.log('Successfully created at: ' + outputPath)
             )
+            } else {
+                fs.mkdir(OUTPUT_DIR, err => {
+                    err ? console.error(err) : 
+                    fs.writeFile(outputPath, render(employees), (err) =>
+                    err ? console.error(err) : console.log('Successfully created at: ' + outputPath)
+                    )
+                });
+                
+            }
         }
     })
 }
 
+// function for chosen questions
 function promptu(qChoice, classP){
     inquirer.prompt(qChoice).then(function (answer) {
         if(classP == Engineer){
