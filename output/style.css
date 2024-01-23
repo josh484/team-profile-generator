@@ -1,0 +1,20 @@
+body{
+    background-color: #000000;
+}
+.team-heading{
+    background-color: #bb86fc;
+}
+
+.card-header{
+    background-color: #03DAC6;
+}
+
+.card-body{
+    background-color: #121212;
+}
+
+.list-group-item{
+    background-color: #121212;
+    color: white;
+}
+
