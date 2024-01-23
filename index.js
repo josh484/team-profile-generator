@@ -128,7 +128,7 @@ function promptu(qChoice, classP){
             employees.push(engineer)
         }
         else{
-            const intern = new classP(answer.eName, answer.id, answer.email, answer.schools)
+            const intern = new classP(answer.eName, answer.id, answer.email, answer.school)
             employees.push(intern)
         }
         choice();
